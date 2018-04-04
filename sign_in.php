@@ -23,8 +23,8 @@
   <div class="container"> 
     <div class="card">
       <div class="card-body">
-        <div class="card-title">Registrasi Perizinan : </div>
-        <form class="card-text" action="register.php" method="POST">
+        <div class="card-title">Masuk Perizinan : </div>
+        <form class="card-text" action="login.php" method="POST">
           <div class="form-group">
             <label for="usernameInput">Username</label>
             <input type="text" required class="form-control" name="username" id="usernameInput"/>
@@ -33,19 +33,11 @@
             <label for="passwordInput">Password</label>
             <input type="password" required class="form-control" name="password" id="passwordInput"/>
           </div>
-          <div class="form-group">
-            <label for="namaperusahaanInput">Nama Perusahaan</label>
-            <input type="text" required class="form-control" name="namaperusahaan" id="namaperusahaanInput"/>
-          </div>
-          <div class="form-group">
-            <label for="npwpInput">NPWP</label>
-            <input type="text" required class="form-control" name="npwp" id="npwpInput"/>
-          </div>
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" class="btn btn-primary">Login</button>
         </form>
       </div>
     </div>
   </div>
 
 </body>
-</html> 
+</html>
