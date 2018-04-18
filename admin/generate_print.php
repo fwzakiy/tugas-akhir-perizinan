@@ -24,10 +24,10 @@
     </style>
     <script>
         function tambahInput(ol){
-            var memperhatikanList = document.getElementById(ol);
+            var memperhatikanList = document.getElementById(ol+'List');
             var input = document.createElement("textarea");
             input.setAttribute("class","form-control input-spacing");
-            input.setAttribute("name","memperhatikan[]");
+            input.setAttribute("name",ol+"[]");
             
             var container = document.createElement("li");
             container.appendChild(input);
@@ -48,7 +48,7 @@
                         <textarea class="form-control input-spacing" name="memperhatikan[]"></textarea>
                     </li>
                 </ol>
-                <a style="margin-top:10px;float: right;" onclick="tambahInput('memperhatikanList')" class="btn btn-success">Tambah Input</a>
+                <a style="margin-top:10px;float: right;" onclick="tambahInput('memperhatikan')" class="btn btn-success">Tambah Input</a>
                 <div style="clear: both;">
             </div>
             <label for="memutuskanInput">Memutuskan : </label>
@@ -58,7 +58,7 @@
                         <textarea class="form-control input-spacing" name="memutuskan[]"></textarea>
                     </li>
                 </ol>
-                <a style="margin-top:10px;float: right;" onclick="tambahInput('memutuskanList')" class="btn btn-success">Tambah Input</a>        
+                <a style="margin-top:10px;float: right;" onclick="tambahInput('memutuskan')" class="btn btn-success">Tambah Input</a>        
                 <div style="clear: both;"/>
             </div>      
             <button type="submit" class="btn btn-primary">Generate</button>      
