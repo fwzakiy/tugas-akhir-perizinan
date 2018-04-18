@@ -1,12 +1,29 @@
 <?php
 
-    $nomor = "411-222-19FUCK";
-    $tipe = "OPERASI";
-    $memperhatikan = [];
-    $nama_perusahaan = "Tegar";
-    $npwp_perusahaan = "123123123213";
-    $alamat_perusahaan = "Jl. Asdasasasdasd xgfchgvjhbkjilj asdasu8yt7r65 asdasd asdasd adsasdawsdq3 7ersxfcgvhbjnd";
-    $nama_directur_perusahaan = "Faishal";
+    session_start();
+    if(!isset($_SESSION["role"]) && $_SESSION["role"] !== "admin"){
+        Header("location:index.php");
+		return;
+    }
+    require_once("../database.php");
+    $query = "SELECT users.username, nama_perusahaan, npwp_perusahaan, alamat_perusahaan,
+                nama_direktur, jenis_permohonan FROM users JOIN permohonan
+                ON users.username = permohonan.username WHERE permohonan_id = ? LIMIT 1";
+    $stmt = mysqli_prepare($con,$query);
+    $stmt->bind_param("i",$_POST["id"]);
+    $stmt->execute();
+
+    $result = $stmt->get_result()->fetch_assoc();
+
+    $nomor = $_POST["nomorsurat"];
+    $tipe = strtoupper($result["jenis_permohonan"]);
+    $memperhatikan = $_POST["memperhatikan"];
+    $nama_perusahaan = $result["nama_perusahaan"];
+    $npwp_perusahaan = $result["npwp_perusahaan"];
+    $alamat_perusahaan = $result["alamat_perusahaan"];
+    $nama_directur_perusahaan = $result["nama_direktur"];
+    $memutuskan = $_POST["memutuskan"];
+    
 ?>
 
 <html lang="en">
@@ -105,10 +122,13 @@
         </tr>
         <tr>
                 
-            <td style="vertical-align:top">Menetapkan</td>
+            <td style="vertical-align:top">
+                <div>Menetapkan</div>
+                <div>KESATU</div>
+            </td>
             <td style="vertical-align:top"> : </td>
             <td>
-                <p>Memberikan Persetujuan Perpanjanagan Kedua Izin Usaha Pertambagan Operasi Produksi Batubara kepada.</p> 
+                <p>Memberikan Persetujuan Perpanjangan Kedua Izin Usaha Pertambagan Operasi Produksi Batubara kepada.</p> 
                 <table style="width:70%;margin:auto;border-spacing:0;">
                     <tr>
                         <td style="white-space:nowrap">Nama Perusahaan</td>
@@ -133,6 +153,76 @@
                 </table>
             </td>
         </tr>
+        <?php
+
+            function d($i){
+                switch($i){
+                    case 1 :
+                        return "SATU";
+                    case 2 :
+                        return 'DUA';
+                    case 3 :
+                        return 'TIGA';  
+                    case 4 :
+                        return 'EMPAT';
+                    case 5 :
+                        return 'LIMA';
+                    case 6 :
+                        return 'ENAM';
+                    case 7 :
+                        return 'TUJUH';
+                    case 8 :
+                        return 'DELAPAN';
+                    case 9 :
+                        return 'SEMBILAN';
+                };
+            }
+
+            function dispatchIndex($i){
+                if($i > 99){
+                    throw new Exception("CANNOT EXCEED 99");
+                }
+                $res = "KE";
+
+                $satuan = $i % 10;
+                $puluhan = ($i % 100 - $satuan) / 10;
+                
+                if($puluhan === 0){
+                    $res .= d($i);
+                }
+                else{
+                    if($satuan === 0){
+                        if($puluhan === 1){
+                            $res .= "SE";
+                        }
+                        else{
+                            $res .= d($puluhan);
+                        }
+                        $res .= "PULUH";
+                    }else{
+                        if($puluhan === 1){
+                            if($satuan === 1){
+                                $res .= "SE";
+                            }else{
+                                $res .= d($satuan);
+                            }
+                            $res .= "BELAS";
+                        }else{
+                            $res .= d($puluhan)."PULUH".d($satuan);
+                        }
+                    }
+                }
+                return $res;
+            }
+
+            $i = 2;
+            array_map(function($val) use(&$i){
+                echo "<tr><td>".dispatchIndex($i)."</td>
+                    <td> : </td>
+                    <td>".$val."</td>";
+                $i++;
+            },$memutuskan);
+        ?>
     </table>
 </body>
 </html>

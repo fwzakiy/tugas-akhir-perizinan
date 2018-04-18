@@ -37,10 +37,17 @@
         </thead>
         <tbody>
             <?php
-                $stmt = mysqli_prepare($con,"SELECT permohonan_id, nama_permohonan, status_permohonan FROM permohonan WHERE username = ?");
-                $stmt->bind_param("s",$_SESSION["username"]);
+
+                $query = "SELECT permohonan_id, nama_permohonan, status_permohonan FROM permohonan";
+                if ($_SESSION["role"] === "user"){
+                    $query .= " WHERE username = ?";
+                    $stmt = mysqli_prepare($con,$query);
+                    $stmt->bind_param("s",$_SESSION["username"]);
+                }else{
+                    $stmt = mysqli_prepare($con,$query);
+                }
+
                 $stmt->execute();
-                
                 $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 $i = 1;
                 array_map(function($value) use (&$i){

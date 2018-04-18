@@ -41,6 +41,14 @@
             <label for="npwpInput">NPWP</label>
             <input type="text" required class="form-control" name="npwp" id="npwpInput"/>
           </div>
+          <div class="form-group">
+            <label for="alamatInput">Alamat Perusahaan</label>
+            <input type="text" required class="form-control" name="alamat" id="alamatInput"/>
+          </div>
+          <div class="form-group">
+            <label for="namadirekturInput">Nama Direktur</label>
+            <input type="text" required class="form-control" name="namadirektur" id="namadirekturInput"/>
+          </div>
           <button type="submit" class="btn btn-primary">Register</button>
         </form>
       </div>

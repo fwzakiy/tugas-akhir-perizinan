@@ -96,7 +96,7 @@
 		array_map($upload,$result);
 		mysqli_commit($con);
 		header("Location:index.php");
-
+		
 	} catch (RuntimeException $e) {
 		mysqli_rollback($con);
 	    echo $e->getMessage();

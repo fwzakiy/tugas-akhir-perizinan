@@ -6,8 +6,8 @@
 		Header("location:sign_in.php");
 		return;
 	}
-	$stmt = mysqli_prepare($con,"SELECT * FROM permohonan WHERE permohonan_id = ? AND username = ? LIMIT 1");
-	$stmt->bind_param("is",$_GET["id"],$_SESSION["username"]);
+	$stmt = mysqli_prepare($con,"SELECT * FROM permohonan WHERE permohonan_id = ? LIMIT 1");
+	$stmt->bind_param("i",$_GET["id"]);
 	$stmt->execute();
 
 	$result = $stmt->get_result()->fetch_assoc();
@@ -88,13 +88,14 @@
 				};
 
 				array_map($showFile,$files);
-				
 			?>
 		</table>
 		<?php
-			if($result["status_permohonan"] == 2){
-				echo '<a href class="btn btn-primary">Ulang Permohonan</a>';
+			if($result["status_permohonan"] === 1 && $_SESSION["role"] == "admin"){
+				echo '<a href="admin/generate_print.php?id='.$_GET["id"].'" class="btn btn-primary">Generate Print</a>';
 			}
+
+
 		?>
 	</div>
 
