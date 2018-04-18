@@ -24,7 +24,6 @@
     $nama_directur_perusahaan = $result["nama_direktur"];
     $memutuskan = $_POST["memutuskan"];
     
-    echo json_encode($_POST);
 ?>
 
 <html lang="en">
