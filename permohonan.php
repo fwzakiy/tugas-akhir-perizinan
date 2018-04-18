@@ -95,7 +95,6 @@
 				echo '<a href="admin/generate_print.php?id='.$_GET["id"].'" class="btn btn-primary">Generate Print</a>';
 			}
 
-
 		?>
 	</div>
 
